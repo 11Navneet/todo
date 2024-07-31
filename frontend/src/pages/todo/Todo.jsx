@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 
 function Todo() {
-  const domain = "http://localhost:8000";
+  const domain = "https://todo-1-ttrp.onrender.com";
   const [todo, setTodo] = useState([]);
   const [input, setInput] = useState("");
   const [listInput, setListInput] = useState("");
