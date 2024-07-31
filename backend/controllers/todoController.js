@@ -58,8 +58,8 @@ const deleteTodos = async(req, res) => {
 
 
 module.exports = {
-    createTodo,
+    createTodos,
     allTodos,
-    editTodo,
-    deleteTodo
+    editTodos,
+    deleteTodos
 }
