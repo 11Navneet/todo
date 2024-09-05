@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { LiaEdit } from "react-icons/lia";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
@@ -7,9 +6,9 @@ import { GrDocumentUpdate } from "react-icons/gr";
 import { MdAssignmentAdd } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import axiosInstance from "../../utils/axiosInstance";
 
 function Todo() {
-  const domain = "https://todo-1-ttrp.onrender.com";
   const [todo, setTodo] = useState([]);
   const [input, setInput] = useState("");
   const [listInput, setListInput] = useState("");
@@ -19,7 +18,7 @@ function Todo() {
   useEffect(() => {
     const getAllTodos = async () => {
       try {
-        const response = await axios.get(`${domain}/todo`);
+        const response = await axiosInstance.get("/todo");
         setTodo(response.data.data);
       } catch (error) {
         console.error("Error fetching todos:", error.message);
@@ -34,7 +33,7 @@ function Todo() {
     try {
       const newTodo = { content: input };
       console.log(newTodo);
-      const response = await axios.post(`${domain}/todo/create`, newTodo);
+      const response = await axiosInstance.post("/todo/create", newTodo);
       setTodo([...todo, response.data.data]);
     } catch (error) {
       console.error("Error adding todo:", error.message);
@@ -53,8 +52,7 @@ function Todo() {
     if (!selectedItemId || !listInput.trim()) return;
     try {
       const updatedTodo = { content: listInput };
-      const response = await axios.put(
-        `${domain}/todo/edit/${selectedItemId}`,
+      const response = await axiosInstance.put("/todo/edit/${selectedItemId}",
         updatedTodo
       );
       const updatedTodos = todo.map((item) =>
@@ -72,8 +70,7 @@ function Todo() {
     if (!window.confirm("Are you sure this todo is completed?")) return;
     try {
       const updatedTodo = { completed: true };
-      const response = await axios.put(
-        `${domain}/todo/edit/${id}`,
+      const response = await axiosInstance.put("/todo/edit/${id}",
         updatedTodo
       );
       const updatedTodos = todo.map((item) =>
@@ -88,7 +85,7 @@ function Todo() {
   const handleDeleteClick = async (itemId) => {
     if (!window.confirm("Are you sure you want to delete this todo?")) return;
     try {
-      await axios.delete(`${domain}/todo/delete/${itemId}`);
+      await axiosInstance.delete("/todo/delete/${itemId}");
       const filteredTodos = todo.filter((item) => item._id !== itemId);
       setTodo(filteredTodos);
     } catch (error) {

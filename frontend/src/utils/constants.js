@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://todo-1-ttrp.onrender.com'
