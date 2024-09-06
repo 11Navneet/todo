@@ -10,7 +10,7 @@ mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB connected")).
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cors({
-    origin: "https://dnsapp.vercel.app",
+    origin: process.env.FRONTEND_ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }));
