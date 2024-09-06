@@ -9,9 +9,12 @@ const app = express()
 mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB connected")).catch((error) => console.log("DB connection failed: ", error.message))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
-app.use(cors({
-    origin: process.env.FRONTEND_ORIGIN,
-}))
+const corsOptions ={
+    origin: process.env.FRONTEND_ORIGIN, 
+    credentials:true,           
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 app.use('/todo', todoRouter)
 app.use('/', userRouter)
 
