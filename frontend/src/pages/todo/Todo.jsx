@@ -52,7 +52,7 @@ function Todo() {
     if (!selectedItemId || !listInput.trim()) return;
     try {
       const updatedTodo = { content: listInput };
-      const response = await axiosInstance.put("/todo/edit/${selectedItemId}",
+      const response = await axiosInstance.put(`/todo/edit/${selectedItemId}`,
         updatedTodo
       );
       const updatedTodos = todo.map((item) =>
@@ -70,7 +70,7 @@ function Todo() {
     if (!window.confirm("Are you sure this todo is completed?")) return;
     try {
       const updatedTodo = { completed: true };
-      const response = await axiosInstance.put("/todo/edit/${id}",
+      const response = await axiosInstance.put(`/todo/edit/${id}`,
         updatedTodo
       );
       const updatedTodos = todo.map((item) =>
@@ -85,7 +85,7 @@ function Todo() {
   const handleDeleteClick = async (itemId) => {
     if (!window.confirm("Are you sure you want to delete this todo?")) return;
     try {
-      await axiosInstance.delete("/todo/delete/${itemId}");
+      await axiosInstance.delete(`/todo/delete/${itemId}`);
       const filteredTodos = todo.filter((item) => item._id !== itemId);
       setTodo(filteredTodos);
     } catch (error) {
